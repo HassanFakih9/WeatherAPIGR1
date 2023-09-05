@@ -10,6 +10,8 @@
     padding-left: 20%;
     padding-right: 10%;
     padding-top: 10%;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -18,6 +20,7 @@
 .Pressure {
     display: flex;
     flex-direction: row;
+    flex: 1;
     align-items: center;
     margin-bottom: 5%;
     background-color: #ebe3e3;
@@ -29,6 +32,7 @@
 .weatheritems {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .RainDesc,
@@ -187,14 +191,14 @@
         height: auto;
         align-items: center;
         justify-content: center;
-        width:100vw;
+        width: 100vw;
     }
 
     .ContainerLeft {
-        padding:0vw ;
+        padding: 0vw;
         flex-direction: column;
-        max-width:  100vw;
-        overflow: hidden;
+        max-width: 100vw;
+        /* overflow: hidden; */
         height: auto;
     }
 
@@ -202,7 +206,8 @@
     .Wind,
     .Pressure {
         border-radius: 50%;
-        height: 40vh;
+        height: 30vh;
+        width: auto;
     }
 
     .weatheritems {
@@ -220,21 +225,40 @@
         flex-direction: column;
         align-items: center;
         text-align: center;
-       
+
     }
 
     .main-division {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
-        width:100vw;
+        width: 100vw;
         height: auto;
     }
 
     .hour-div {
         width: 100vw;
         margin: 10px 0;
+        height: 30vh;
+        justify-content: space-between;
+        padding-top: 3vw;
+        padding-bottom: 3vw;
+
     }
 
-    
+    .SearchInput {
+        width: 80%;
+    }
+
+    .SearchBar {
+        width: 85%;
+    }
+
+    .weather-images {
+        height: 50vh;
+    }
+
+    .temperature {
+        padding-top: 0vh;
+    }
 }
