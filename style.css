@@ -1,4 +1,4 @@
-.A-ContainerLeft {
+.ContainerLeft {
     display: flex;
     flex-direction: column; 
     padding-left: 20%;
@@ -7,13 +7,13 @@
   }
   
  
-  .A-Rain,
-  .A-Wind,
-  .A-Pressure {
+  .Rain,
+  .Wind,
+  .Pressure {
     display: flex;
     flex-direction: row; 
     align-items: center; 
-    margin-bottom: 15%; 
+    margin-bottom: 5%; 
     background-color: #ebe3e3;
     width: 200px;
     height: 60px;
@@ -21,29 +21,29 @@
   }
   
   
-  .A-RainDesc,
-  .A-WindDesc,
-  .A-PressureDesc {
+  .RainDesc,
+  .WindDesc,
+  .PressureDesc {
     margin: 0; 
     padding-left: 10px; 
   }
 
 
 
-  .A-waterImage,
-  .A-windImage{
+  .waterImage,
+  .windImage{
     max-width: 50px;
     max-height: 50px;
     padding-left: 5%;
   }
 
-  .A-pressureImage {
+  .pressureImage {
     max-width: 35px;
     max-height: 35px;
     padding-left: 5%;
   }
 
-  .A-ContainerRight {
+  .ContainerRight {
     display: flex;
     flex-direction: column; 
     align-items: center; 
@@ -55,18 +55,18 @@
   }
   
   
-  .A-CurrentTemp {
+  .CurrentTemp {
     font-size: 50px; 
   }
   
   
-  .A-CurrentTempDesc {
+  .CurrentTempDesc {
     font-size: 30px;
     color: #9b9797;
     margin: 0; 
   }
 
-  .A-ContainerOfTheUpPart {
+  .ContainerOfTheUpPart {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -79,87 +79,48 @@
     margin-top: 5%;
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.J-main-division {
+  .SearchBar {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 30px;
+    margin-bottom: 20px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+  }
+
+.SearchInput {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 30px;
+    outline: none;
+    font-size: 16px;
+    width:270px;
+   
+}
+
+.SearchIcon {
+    font-size: 24px;
+    margin-left: 10px;
+    color: #555;
+    cursor: pointer;
+}
+
+
+.SearchIcon:hover {
+    color: #333; 
+}
+
+.SearchBtn {
+  max-width: 40px;
+  max-height: 40px;
+}
+
+
+
+.main-division {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -170,7 +131,7 @@
   }
   
   
-  .J-hour-div {
+  .hour-div {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -183,23 +144,23 @@
     text-align: center;
   }
   
-  .J-hour-div p {
+  .hour-div p {
     font-size: x-large;
   }
   
 
-  .J-weather-images {
+  .weather-images {
     max-width: 100px; 
     max-height: 100px;
     transition: transform 0.2s ease;
   }
   
-  .J-weather-images:hover {
+  .weather-images:hover {
     transform: scale(1.2); 
     
   }
 
-  .J-temperature {
+  .temperature {
     font-size: 36px; 
     padding-top: 10%;
   }
