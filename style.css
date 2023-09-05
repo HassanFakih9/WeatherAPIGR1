@@ -1,0 +1,80 @@
+.A-ContainerLeft {
+    display: flex;
+    flex-direction: column; 
+    padding-left: 20%;
+    padding-right: 10%;
+    padding-top: 10%;
+  }
+  
+ 
+  .A-Rain,
+  .A-Wind,
+  .A-Pressure {
+    display: flex;
+    flex-direction: row; 
+    align-items: center; 
+    margin-bottom: 15%; 
+    background-color: #ebe3e3;
+    width: 200px;
+    height: 60px;
+    border-radius: 30px;
+  }
+  
+  
+  .A-RainDesc,
+  .A-WindDesc,
+  .A-PressureDesc {
+    margin: 0; 
+    padding-left: 10px; 
+  }
+
+
+
+  .A-waterImage,
+  .A-windImage{
+    max-width: 50px;
+    max-height: 50px;
+    padding-left: 5%;
+  }
+
+  .A-pressureImage {
+    max-width: 35px;
+    max-height: 35px;
+    padding-left: 5%;
+  }
+
+  .A-ContainerRight {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center; 
+    padding-right: 25%;
+    
+
+
+  }
+  
+  
+  .A-CurrentTemp {
+    font-size: 50px; 
+  }
+  
+  
+  .A-CurrentTempDesc {
+    font-size: 30px;
+    color: #9b9797;
+    margin: 0; 
+  }
+
+  .A-ContainerOfTheUpPart {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: rgb(218, 252, 249);
+    border-radius: 30px;
+    height: 500px;
+    width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+  }
