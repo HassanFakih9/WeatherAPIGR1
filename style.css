@@ -180,15 +180,11 @@
 }
 
 
-/* Media query for screens with a max-width of 768px (typical tablets) */
+
 @media (max-width: 768px) {
     .ContainerOfTheUpPart {
         flex-direction: column;
-        /* Stack elements vertically on smaller screens */
         height: auto;
-        /* Remove fixed height */
-        /* padding: 10px; */
-        /* Reduce padding for smaller screens */
         align-items: center;
         justify-content: center;
         width:100vw;
@@ -196,7 +192,6 @@
 
     .ContainerLeft {
         padding:0vw ;
-        /* Adjust padding for smaller screens */
         flex-direction: column;
         max-width:  100vw;
         overflow: hidden;
@@ -237,12 +232,9 @@
     }
 
     .hour-div {
-        /* width:90%; */
         width: 100vw;
-        /* Make each hour-div span the full width */
         margin: 10px 0;
-        /* Add vertical margin to separate them */
     }
 
-    /* Add more media query styles as needed for other elements */
+    
 }
