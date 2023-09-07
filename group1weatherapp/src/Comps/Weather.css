@@ -3,7 +3,7 @@
     flex-direction: column; 
     padding-left: 20%;
     padding-right: 10%;
-    padding-top: 10%;
+    padding-top: 5%;
   }
   
  
@@ -43,6 +43,12 @@
     padding-left: 5%;
   }
 
+  .MainImage{
+    max-width: 250px;
+    max-height: 250px;
+    padding-top: 10%;
+  }
+
   .ContainerRight {
     display: flex;
     flex-direction: column; 
@@ -72,7 +78,7 @@
     align-items: flex-start;
     background-color: rgb(218, 252, 249);
     border-radius: 30px;
-    height: 500px;
+    height: 470px;
     width: 1400px;
     margin-left: auto;
     margin-right: auto;
@@ -151,8 +157,8 @@
   
 
   .weather-images {
-    max-width: 300px; 
-    max-height: 300px;
+    max-width: 100px; 
+    max-height: 100px;
     transition: transform 0.2s ease;
   }
   

@@ -8,12 +8,15 @@ const CurrentWeather = ({ onCityChange }) => {
     pressure: '',
     currentTemperature: '',
     tempDesc: '',
+    weatherConditionCode: '',
   });
   const [city, setCity] = useState('lebanon'); //Default as lebanon
 
   const handleCityChange = (event) => {
     setCity(event.target.value);
   };
+
+  
 
   const fetchWeatherData = () => {
     const apiKey = '49dbc11a976fd95d5d464739a2a668e8';
@@ -29,6 +32,7 @@ const CurrentWeather = ({ onCityChange }) => {
           pressure: data.main.pressure,
           currentTemperature: data.main.temp, // Temperature in Celsius
           tempDesc: data.weather[0].description,
+          weatherConditionCode: data.weather[0].icon,
         });
 
         // Pass the user-entered city to the parent component
@@ -43,6 +47,29 @@ const CurrentWeather = ({ onCityChange }) => {
   useEffect(() => {
     fetchWeatherData();
   }, [city]);
+
+  const getWeatherImage = (conditionCode) => {
+    switch (conditionCode) {
+      case '01d':
+        return 'Images/sun.png';
+      case '02d':
+        return 'Images/sunny.png';
+      case '03d':
+      case '04d':
+        return 'Images/smiling.png';
+      case '09d':
+      case '10d':
+        return 'Images/rain.png';
+      case '11d':
+        return 'Images/severe-weather.png';
+      case '13d':
+        return 'Images/snow.png';
+      case '50d':
+        return 'Images/fog.png';
+      default:
+        return 'Images/MainSun.png';
+    }
+  };
 
   return (
     <div className="ContainerOfTheUpPart">
@@ -72,7 +99,7 @@ const CurrentWeather = ({ onCityChange }) => {
         </div>
       </div>
       <div className="ContainerRight">
-        <img src="Images/MainSun.png" className="MainImage" />
+      <img src={getWeatherImage(weatherData.weatherConditionCode)} className="MainImage" />
         <b className="CurrentTemp">{weatherData.currentTemperature}°C</b>
         <p className="CurrentTempDesc">{weatherData.tempDesc}</p>
       </div>
