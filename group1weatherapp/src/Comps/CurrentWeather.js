@@ -49,28 +49,32 @@ const CurrentWeather = ({ onCityChange }) => {
   }, [city]);
 
   const getWeatherImage = (conditionCode) => {
-    switch (conditionCode) {
-      case '01d':
-        return 'Images/sun.png';
-      case '02d':
-        return 'Images/sunny.png';
-      case '03d':
-      case '04d':
-        return 'Images/smiling.png';
-      case '09d':
-      case '10d':
-        return 'Images/rain.png';
-      case '11d':
-        return 'Images/severe-weather.png';
-      case '13d':
-        return 'Images/snow.png';
-      case '50d':
-        return 'Images/fog.png';
-      default:
-        return 'Images/MainSun.png';
-    }
-  };
+    const currentHour = new Date().getHours();
 
+  // Determine if it's daytime (AM) or nighttime (PM)
+  const isDaytime = currentHour >= 6 && currentHour < 18; // Assuming 6 AM to 6 PM is daytime
+
+  switch (conditionCode) {
+    case '01d':
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/sun.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+    case '02d':
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/sunny.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+    case '03d':
+    case '04d':
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/smiling.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+    case '09d':
+    case '10d':
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/rain.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+    case '11d':
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/severe-weather.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+    case '13d':
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/snow.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+    case '50d':
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/fog.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+    default:
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/MainSun.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+  }
+};
   return (
     <div className="ContainerOfTheUpPart">
       <div className="ContainerLeft">
