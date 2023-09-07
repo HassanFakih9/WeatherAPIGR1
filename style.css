@@ -237,6 +237,7 @@
     }
 
     .hour-div {
+        flex-direction: ro;
         width: 100vw;
         margin: 10px 0;
         height: 30vh;
