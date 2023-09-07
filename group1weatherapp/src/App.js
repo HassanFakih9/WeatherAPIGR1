@@ -1,36 +1,44 @@
 
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import WeatherHour from './Comps/WeatherHour';
 import CurrentWeather from './Comps/CurrentWeather';
+
 function App() {
-  const weatherData = [
-    { time: '10:00', iconSrc: 'Images/sunny.png', temperature: '+15 °C' },
-    { time: '11:00', iconSrc: 'Images/snow.png', temperature: '+17 °C' },
-    { time: '12:00', iconSrc: 'Images/wind.png', temperature: '+11 °C' },
-    { time: '13:00', iconSrc: 'Images/sun.png', temperature: '+16 °C' },
-    { time: '14:00', iconSrc: 'Images/water.png', temperature: '+13 °C' },
-    { time: '15:00', iconSrc: 'Images/smiling.png', temperature: '+0 °C' },
-    { time: '116:00', iconSrc: 'Images/severe-weather.png', temperature: '+11 °C' },
-   
-  ];
+  const [weatherData, setWeatherData] = useState([]);
+
+  useEffect(() => {
+    const apiKey = '49dbc11a976fd95d5d464739a2a668e8';
+    const city = 'lebanon'; // to be changed
+    
+    // Fetch weather data for the next 5 days in 3-hour intervals
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Extract data for every 3 hours and store it in weatherData state
+        const filteredData = data.list.filter((item, index) => index % 8 === 0); // 8 * 3 hours = 24 hours
+        setWeatherData(filteredData);
+      })
+      .catch((error) => {
+        console.error('Error fetching weather data:', error);
+      });
+  }, []);
+
   return (
     <div>
-    <CurrentWeather  />
-    
-    <div className="main-division">
-
-       {weatherData.map((data, index) => (
-        <WeatherHour
-          key={index} 
-          time={data.time}
-          iconSrc={data.iconSrc}
-          temperature={data.temperature}
-        />
-      ))}
-     
-    </div>
+      <CurrentWeather />
+      <div className="main-division">
+        {weatherData.map((data, index) => (
+          <WeatherHour
+            key={index}
+            time={data.dt_txt}
+            iconSrc={`https://openweathermap.org/img/wn/${data.weather[0].icon}.png`}
+            temperature={`${data.main.temp} °C`}
+          />
+        ))}
+      </div>
     </div>
   );
-};
+}
 
 export default App;
