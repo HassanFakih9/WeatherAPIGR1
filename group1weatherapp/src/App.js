@@ -19,23 +19,23 @@ function App() {
 
   switch (conditionCode) {
     case '01d':
-      return isDaytime ? process.env.PUBLIC_URL + '/Images/sun.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/sun.png' : process.env.PUBLIC_URL + '/Images/full-moon.png';
     case '02d':
-      return isDaytime ? process.env.PUBLIC_URL + '/Images/sunny.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/sunny.png' : process.env.PUBLIC_URL + '/Images/rainmoon.png';
     case '03d':
     case '04d':
-      return isDaytime ? process.env.PUBLIC_URL + '/Images/smiling.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/smiling.png' : process.env.PUBLIC_URL + '/Images/Cloudymoon.png';
     case '09d':
     case '10d':
-      return isDaytime ? process.env.PUBLIC_URL + '/Images/rain.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/rain.png' : process.env.PUBLIC_URL + '/Images/rainmoon.png';
     case '11d':
-      return isDaytime ? process.env.PUBLIC_URL + '/Images/severe-weather.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/severe-weather.png' : process.env.PUBLIC_URL + '/Images/HeavyWeathermoon.png';
     case '13d':
-      return isDaytime ? process.env.PUBLIC_URL + '/Images/snow.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/snow.png' : process.env.PUBLIC_URL + '/Images/snowmoon.png';
     case '50d':
-      return isDaytime ? process.env.PUBLIC_URL + '/Images/fog.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/fog.png' : process.env.PUBLIC_URL + '/Images/full-moon.png';
     default:
-      return isDaytime ? process.env.PUBLIC_URL + '/Images/MainSun.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/sun.png' : process.env.PUBLIC_URL + '/Images/full-moon.png';
   }
 };
   useEffect(() => {
@@ -45,8 +45,9 @@ function App() {
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`)
       .then((response) => response.json())
       .then((data) => {
+
         // Filter the data for every 3 hours
-        const filteredData = data.list.filter((item, index) => index % 8 === 0); // 8 * 3 hours = 24 hours
+        const filteredData = data.list.filter((item, index) => index % 3 === 0); // 3-hour intervals
 
         // Update the weatherData state with the filtered data
         setWeatherData(filteredData);
@@ -60,25 +61,26 @@ function App() {
     <div>
       <CurrentWeather onCityChange={handleCityChange} />
       <div className="main-division">
-  {weatherData.map((data, index) => {
-    // Calculate the time for each WeatherHour based on the current time and index
-    const time = new Date(currentDate);
-    time.setHours(currentDate.getHours() + (3 * index));
-    const formattedTime = `${time.getHours().toString().padStart(2, '0')}:${time.getMinutes().toString().padStart(2, '0')}`;
-    const hour = time.getHours();
+      {weatherData.slice(0, 7).map((data, index) => {
+        
+  // Calculate the time for each WeatherHour based on the current time and index
+  const time = new Date(currentDate);
+  time.setHours(currentDate.getHours() + (3 * index));
+  const formattedTime = `${time.getHours().toString().padStart(2, '0')}:${time.getMinutes().toString().padStart(2, '0')}`;
+  const hour = time.getHours();
 
-    // Get the condition code for the current data
-    const conditionCode = data.weather[0].icon;
+  // Get the condition code for the current data
+  const conditionCode = data.weather[0].icon;
 
-    return (
-      <WeatherHour
-        key={index}
-        time={formattedTime} // Updated time format
-        iconSrc={getWeatherImageForTime(conditionCode, hour)}
-        temperature={`${data.main.temp} °C`}
-      />
-    );
-  })}
+  return (
+    <WeatherHour
+      key={index}
+      time={formattedTime} // Updated time format
+      iconSrc={getWeatherImageForTime(conditionCode, hour)}
+      temperature={`${data.main.temp} °C`}
+    />
+  );
+})}
 </div>
     </div>
   );

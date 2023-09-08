@@ -26,6 +26,7 @@ const CurrentWeather = ({ onCityChange }) => {
       .then((response) => response.json())
       .then((data) => {
         // Update the weatherData state with the fetched data
+      
         setWeatherData({
           humidity: data.main.humidity,
           wind: data.wind.speed,
@@ -33,6 +34,7 @@ const CurrentWeather = ({ onCityChange }) => {
           currentTemperature: data.main.temp, // Temperature in Celsius
           tempDesc: data.weather[0].description,
           weatherConditionCode: data.weather[0].icon,
+          
         });
 
         // Pass the user-entered city to the parent component
@@ -56,23 +58,23 @@ const CurrentWeather = ({ onCityChange }) => {
 
   switch (conditionCode) {
     case '01d':
-      return isDaytime ? process.env.PUBLIC_URL + '/Images/sun.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/sun.png' : process.env.PUBLIC_URL + '/Images/full-moon.png';
     case '02d':
-      return isDaytime ? process.env.PUBLIC_URL + '/Images/sunny.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/sunny.png' : process.env.PUBLIC_URL + '/Images/rainmoon.png';
     case '03d':
     case '04d':
-      return isDaytime ? process.env.PUBLIC_URL + '/Images/smiling.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/smiling.png' : process.env.PUBLIC_URL + '/Images/Cloudymoon.png';
     case '09d':
     case '10d':
-      return isDaytime ? process.env.PUBLIC_URL + '/Images/rain.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/rain.png' : process.env.PUBLIC_URL + '/Images/rainmoon.png';
     case '11d':
-      return isDaytime ? process.env.PUBLIC_URL + '/Images/severe-weather.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/severe-weather.png' : process.env.PUBLIC_URL + '/Images/HeavyWeathermoon.png';
     case '13d':
-      return isDaytime ? process.env.PUBLIC_URL + '/Images/snow.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/snow.png' : process.env.PUBLIC_URL + '/Images/snowmoon.png';
     case '50d':
-      return isDaytime ? process.env.PUBLIC_URL + '/Images/fog.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/fog.png' : process.env.PUBLIC_URL + '/Images/full-moon.png';
     default:
-      return isDaytime ? process.env.PUBLIC_URL + '/Images/MainSun.png' : process.env.PUBLIC_URL + '/Images/moon.png';
+      return isDaytime ? process.env.PUBLIC_URL + '/Images/sun.png' : process.env.PUBLIC_URL + '/Images/moon.png';
   }
 };
   return (
@@ -90,20 +92,25 @@ const CurrentWeather = ({ onCityChange }) => {
           <i className="SearchIcon"></i>
         </div>
         <div className="Rain">
-          <img src="Images/water.png" className="waterImage" />
+          <img src="Images/rainrate.png" className="waterImage" />
+          <b className="humiditylbl">humidity:</b>
           <p className="RainDesc">{weatherData.humidity}%</p>
         </div>
         <div className="Wind">
           <img src="Images/wind.png" className="windImage" />
+          <b className="Windlbl">wind:</b>
           <p className="WindDesc">{weatherData.wind} km/h</p>
         </div>
         <div className="Pressure">
           <img src="Images/pressure.png" className="pressureImage" />
+          <b className="Pressurelbl">Pressure:</b>
           <p className="PressureDesc">{weatherData.pressure} hPa</p>
         </div>
+       
       </div>
       <div className="ContainerRight">
       <img src={getWeatherImage(weatherData.weatherConditionCode)} className="MainImage" />
+      <p className='CityName'>{city}</p>
         <b className="CurrentTemp">{weatherData.currentTemperature}°C</b>
         <p className="CurrentTempDesc">{weatherData.tempDesc}</p>
       </div>

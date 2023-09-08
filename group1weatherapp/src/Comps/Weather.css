@@ -1,175 +1,179 @@
 .ContainerLeft {
-    display: flex;
-    flex-direction: column; 
-    padding-left: 20%;
-    padding-right: 10%;
-    padding-top: 5%;
-  }
+  display: flex;
+  flex-direction: column; 
+  padding-left: 20%;
+  padding-right: 10%;
+  padding-top: 5%;
+}
+
+.RainRate,
+.Rain,
+.Wind,
+.Pressure {
+  display: flex;
+  flex-direction: row; 
+  align-items: center; 
+  margin-bottom: 5%; 
+  background-color: #ebe3e3;
+  width: 200px;
+  height: 60px;
+  border-radius: 30px;
+}
+
+.RainRateDesc,
+.RainDesc,
+.WindDesc,
+.PressureDesc {
+  margin: 0; 
+  padding-left: 10px; 
+}
+
+
+.RainRateImage,
+.waterImage,
+.windImage{
+  max-width: 50px;
+  max-height: 50px;
+  padding-left: 5%;
+}
+
+.pressureImage {
+  max-width: 35px;
+  max-height: 35px;
+  padding-left: 5%;
+}
+
+.MainImage{
+  max-width: 250px;
+  max-height: 250px;
+  padding-top: 10%;
+}
+
+.ContainerRight {
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  text-align: center; 
+  padding-right: 25%;
   
- 
-  .Rain,
-  .Wind,
-  .Pressure {
-    display: flex;
-    flex-direction: row; 
-    align-items: center; 
-    margin-bottom: 5%; 
-    background-color: #ebe3e3;
-    width: 200px;
-    height: 60px;
-    border-radius: 30px;
-  }
+
+
+}
+
+.humiditylbl,
+.Windlbl,
+.Pressurelbl{
+
+}
+
+
+.CurrentTemp {
+  font-size: 50px; 
+}
+
+.CityName,
+.CurrentTempDesc {
+  font-size: 30px;
+  color: #9b9797;
+  margin: 0; 
+}
+
+.ContainerOfTheUpPart {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-image: url('../../public/Images/background-weather-app.png'); 
+  border-radius: 30px;
+  height: 470px;
+  width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2%;
+
+}
+
+.SearchBar {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 30px;
+  margin-bottom: 20px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   
-  
-  .RainDesc,
-  .WindDesc,
-  .PressureDesc {
-    margin: 0; 
-    padding-left: 10px; 
-  }
-
-
-
-  .waterImage,
-  .windImage{
-    max-width: 50px;
-    max-height: 50px;
-    padding-left: 5%;
-  }
-
-  .pressureImage {
-    max-width: 35px;
-    max-height: 35px;
-    padding-left: 5%;
-  }
-
-  .MainImage{
-    max-width: 250px;
-    max-height: 250px;
-    padding-top: 10%;
-  }
-
-  .ContainerRight {
-    display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    text-align: center; 
-    padding-right: 25%;
-    
-
-
-  }
-  
-  
-  .CurrentTemp {
-    font-size: 50px; 
-  }
-  
-  
-  .CurrentTempDesc {
-    font-size: 30px;
-    color: #9b9797;
-    margin: 0; 
-  }
-
-  .ContainerOfTheUpPart {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    background-color: rgb(218, 252, 249);
-    border-radius: 30px;
-    height: 470px;
-    width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 2%;
- 
-  }
-
-  .SearchBar {
-    display: flex;
-    align-items: center;
-    background-color: #ffffff;
-    border-radius: 30px;
-    margin-bottom: 20px;
-    padding: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    
-  }
+}
 
 .SearchInput {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    border-radius: 30px;
-    outline: none;
-    font-size: 16px;
-    width:270px;
-   
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 30px;
+  outline: none;
+  font-size: 16px;
+  width:270px;
+ 
 }
 
 .SearchIcon {
-    font-size: 24px;
-    margin-left: 10px;
-    color: #555;
-    cursor: pointer;
+  font-size: 24px;
+  margin-left: 10px;
+  color: #555;
+  cursor: pointer;
 }
 
 
 .SearchIcon:hover {
-    color: #333; 
+  color: #333; 
 }
 
 .SearchBtn {
-  max-width: 40px;
-  max-height: 40px;
+max-width: 40px;
+max-height: 40px;
 }
 
-  /*joyaa */
+/*joyaa */
 
-  .main-division {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-left: auto;
-    margin-right: auto;
-    height: 500px; 
-    width: 1400px; 
-  }
-  
-  
-  .hour-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 180px; 
-    height: 300px; 
-    background-color: rgb(248, 248, 205);
-    border-radius: 40px; 
-    margin: 10px; 
-    text-align: center;
-  }
-  
-  .hour-div p {
-    font-size: x-large;
-  }
-  
+.main-division {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
+  height: 500px; 
+  width: 1400px; 
+}
 
-  .weather-images {
-    max-width: 100px; 
-    max-height: 100px;
-    transition: transform 0.2s ease;
-  }
-  
-  .weather-images:hover {
-    transform: scale(1.2); 
-    
-  }
 
-  .temperature {
-    font-size: 36px; 
-    padding-top: 10%;
-  }
+.hour-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 180px; 
+  height: 300px; 
+  background-color: rgb(248, 248, 205);
+  border-radius: 40px; 
+  margin: 10px; 
+  text-align: center;
+}
+
+.hour-div p {
+  font-size: x-large;
+}
+
+
+.weather-images {
+  max-width: 100px; 
+  max-height: 100px;
+  transition: transform 0.2s ease;
+}
+
+.weather-images:hover {
+  transform: scale(1.2); 
   
-  
+}
+
+.temperature {
+  font-size: 36px; 
+  padding-top: 10%;
+}
