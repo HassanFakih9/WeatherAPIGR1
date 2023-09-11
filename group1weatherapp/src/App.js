@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import WeatherHour from './Comps/WeatherHour';
 import CurrentWeather from './Comps/CurrentWeather';
-import'./Comps/Weather.css';
+import './Comps/Weather.css';
 
 function App() {
- 
   const [weatherData, setWeatherData] = useState([]);
   const currentDate = new Date();
-  const [city, setCity] = useState('lebanon');
+  const [city, setCity] = useState('');
   const [currentWeather, setCurrentWeather] = useState({
     humidity: '',
     wind: '',
@@ -18,9 +17,30 @@ function App() {
     weatherConditionCode: '',
     CurrentCity: '',
   });
+  const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleCityChange = (newCity) => {
-    setCity(newCity);
+  const handleCityChange = (event) => {
+    if (event.key === 'Enter') {
+      setSubmitted(true);
+    } else {
+      const newCity = event.target.value;
+      setCity(newCity);
+      setSubmitted(false);
+
+      if (!newCity.trim()) {
+        setCurrentWeather({
+          humidity: '',
+          wind: '',
+          pressure: '',
+          currentTemperature: '',
+          tempDesc: '',
+          weatherConditionCode: '',
+          CurrentCity: '',
+        });
+        setWeatherData([]);
+      }
+    }
   };
 
   const getWeatherImageForTime = (conditionCode, hour) => {
@@ -49,28 +69,39 @@ function App() {
   };
 
   useEffect(() => {
-    const apiKey = '49dbc11a976fd95d5d464739a2a668e8';
+    // Fetch data when submitted is true and city is not empty
+    if (submitted && city.trim()) {
+      const apiKey = '49dbc11a976fd95d5d464739a2a668e8';
 
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`)
-      .then((response) => response.json())
-      .then((data) => {
-        setWeatherData(data.list);
-        const currentWeatherData = data.list[0];
-        setCurrentWeather({
-          humidity: currentWeatherData.main.humidity,
-          wind: currentWeatherData.wind.speed,
-          pressure: currentWeatherData.main.pressure,
-          currentTemperature: currentWeatherData.main.temp,
-          tempDesc: currentWeatherData.weather[0].description,
-          weatherConditionCode: currentWeatherData.weather[0].icon,
-          CurrentCity: city,
+      fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`${city} isn't a city`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setWeatherData(data.list);
+          const currentWeatherData = data.list[0];
+          setCurrentWeather({
+            humidity: currentWeatherData.main.humidity,
+            wind: currentWeatherData.wind.speed,
+            pressure: currentWeatherData.main.pressure,
+            currentTemperature: currentWeatherData.main.temp,
+            tempDesc: currentWeatherData.weather[0].description,
+            weatherConditionCode: currentWeatherData.weather[0].icon,
+            CurrentCity: city,
+          });
+          // Clear any previous error message
+          setErrorMessage('');
+        })
+        .catch((error) => {
+          
+          setErrorMessage(error.message);
+          console.error('Error fetching weather data:', error);
         });
-      })
-      .catch((error) => {
-        console.error('Error fetching weather data:', error);
-        
-      });
-  }, [city]);
+    }
+  }, [city, submitted]);
 
   return (
     <div>
@@ -82,7 +113,9 @@ function App() {
       />
 
       <div className="main-division">
-        {weatherData && weatherData.length > 0 ? (
+        {errorMessage ? (
+          <p>{errorMessage}</p>
+        ) : weatherData && weatherData.length > 0 ? (
           weatherData.slice(0, 7).map((data, index) => {
             const time = new Date(currentDate);
             time.setHours(currentDate.getHours() + 3 * index);
@@ -99,10 +132,8 @@ function App() {
             );
           })
         ) : (
-          <p>Loading weather data if it takes too long check your city name ...</p>
-
+          <p>{!(city.trim()) ? 'Enter a city name.' : 'Loading weather data...'}</p>
         )}
-      
       </div>
     </div>
   );

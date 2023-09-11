@@ -10,12 +10,17 @@ const CurrentWeather = ({ onCityChange, currentWeather, getWeatherImageForTime }
         <div className="SearchBar">
           <img src="Images/cloud-computing.png" className="SearchBtn" onClick={onCityChange} />
           <input
-            type="text"
-            className="SearchInput"
-            placeholder="Enter City Name ..."
-            value={currentWeather.city}
-            onChange={(event) => onCityChange(event.target.value)} 
-          />
+              type="text"
+              className="SearchInput"
+              placeholder="Enter City Name ..."
+              value={currentWeather.city}
+              onChange={(event) => onCityChange(event)}
+              onKeyPress={(event) => {
+                if (event.key === 'Enter') {
+                  onCityChange(event);
+                }
+              }}
+            />
           <i className="SearchIcon"></i>
         </div>
         <div className="Rain">
