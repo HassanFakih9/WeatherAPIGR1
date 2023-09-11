@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import WeatherHour from './Comps/WeatherHour';
@@ -7,15 +6,23 @@ import CurrentWeather from './Comps/CurrentWeather';
 function App() {
   const [weatherData, setWeatherData] = useState([]);
   const currentDate = new Date();
-  const [city, setCity] = useState('lebanon'); // By default Lebanon 
+  const [city, setCity] = useState('lebanon');
+  const [currentWeather, setCurrentWeather] = useState({
+    humidity: '',
+    wind: '',
+    pressure: '',
+    currentTemperature: '',
+    tempDesc: '',
+    weatherConditionCode: '',
+    CurrentCity:'',
+  });
 
   const handleCityChange = (newCity) => {
     setCity(newCity);
   };
 
   const getWeatherImageForTime = (conditionCode, hour) => {
-    // Determine if it's daytime (AM) or nighttime (PM) based on the given hour
-    const isDaytime = hour >= 6 && hour < 18; // Assuming 6 AM to 6 PM is daytime
+    const isDaytime = hour >= 6 && hour < 18;
 
     switch (conditionCode) {
       case '01d':
@@ -38,19 +45,25 @@ function App() {
         return isDaytime ? process.env.PUBLIC_URL + '/Images/sun.png' : process.env.PUBLIC_URL + '/Images/full-moon.png';
     }
   };
+
   useEffect(() => {
     const apiKey = '49dbc11a976fd95d5d464739a2a668e8';
 
-    // Fetch weather data for the current day with 3-hour intervals based on user-entered city
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`)
       .then((response) => response.json())
       .then((data) => {
-
-        // Filter the data for every 3 hours
-        const filteredData = data.list.filter((item, index) => index % 3 === 0); // 3-hour intervals
-
-        // Update the weatherData state with the filtered data
+        const filteredData = data.list.filter((item, index) => index % 3 === 0);
         setWeatherData(filteredData);
+        const currentWeatherData = data.list[0];
+        setCurrentWeather({
+          humidity: currentWeatherData.main.humidity,
+          wind: currentWeatherData.wind.speed,
+          pressure: currentWeatherData.main.pressure,
+          currentTemperature: currentWeatherData.main.temp,
+          tempDesc: currentWeatherData.weather[0].description,
+          weatherConditionCode: currentWeatherData.weather[0].icon,
+          CurrentCity: city,
+        });
       })
       .catch((error) => {
         console.error('Error fetching weather data:', error);
@@ -59,31 +72,30 @@ function App() {
 
   return (
     <div>
-      <CurrentWeather onCityChange={handleCityChange} />
+      <CurrentWeather
+        onCityChange={handleCityChange}
+        currentWeather={currentWeather}
+        weatherData={weatherData}
+        getWeatherImageForTime={getWeatherImageForTime}
+      />
       <div className="main-division">
         {weatherData.slice(0, 7).map((data, index) => {
-
-          // Calculate the time for each WeatherHour based on the current time and index
           const time = new Date(currentDate);
-          time.setHours(currentDate.getHours() + (3 * index));
+          time.setHours(currentDate.getHours() + 3 * index);
           const formattedTime = `${time.getHours().toString().padStart(2, '0')}:${time.getMinutes().toString().padStart(2, '0')}`;
           const hour = time.getHours();
-
-          // Get the condition code for the current data
           const conditionCode = data.weather[0].icon;
 
           return (
             <WeatherHour
               key={index}
-              time={formattedTime} // Updated time format
+              time={formattedTime}
               iconSrc={getWeatherImageForTime(conditionCode, hour)}
               temperature={`${data.main.temp} °C`}
             />
           );
         })}
-
       </div>
-
     </div>
   );
 }
