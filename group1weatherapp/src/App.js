@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import WeatherHour from './Comps/WeatherHour';
 import CurrentWeather from './Comps/CurrentWeather';
+import'./Comps/Weather.css';
 
 function App() {
+ 
   const [weatherData, setWeatherData] = useState([]);
   const currentDate = new Date();
   const [city, setCity] = useState('lebanon');
@@ -14,7 +16,7 @@ function App() {
     currentTemperature: '',
     tempDesc: '',
     weatherConditionCode: '',
-    CurrentCity:'',
+    CurrentCity: '',
   });
 
   const handleCityChange = (newCity) => {
@@ -52,8 +54,7 @@ function App() {
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`)
       .then((response) => response.json())
       .then((data) => {
-        const filteredData = data.list.filter((item, index) => index % 3 === 0);
-        setWeatherData(filteredData);
+        setWeatherData(data.list);
         const currentWeatherData = data.list[0];
         setCurrentWeather({
           humidity: currentWeatherData.main.humidity,
@@ -67,6 +68,7 @@ function App() {
       })
       .catch((error) => {
         console.error('Error fetching weather data:', error);
+        
       });
   }, [city]);
 
@@ -78,23 +80,29 @@ function App() {
         weatherData={weatherData}
         getWeatherImageForTime={getWeatherImageForTime}
       />
-      <div className="main-division">
-        {weatherData.slice(0, 7).map((data, index) => {
-          const time = new Date(currentDate);
-          time.setHours(currentDate.getHours() + 3 * index);
-          const formattedTime = `${time.getHours().toString().padStart(2, '0')}:${time.getMinutes().toString().padStart(2, '0')}`;
-          const hour = time.getHours();
-          const conditionCode = data.weather[0].icon;
 
-          return (
-            <WeatherHour
-              key={index}
-              time={formattedTime}
-              iconSrc={getWeatherImageForTime(conditionCode, hour)}
-              temperature={`${data.main.temp} °C`}
-            />
-          );
-        })}
+      <div className="main-division">
+        {weatherData && weatherData.length > 0 ? (
+          weatherData.slice(0, 7).map((data, index) => {
+            const time = new Date(currentDate);
+            time.setHours(currentDate.getHours() + 3 * index);
+            const hour = time.getHours();
+            const conditionCode = data.weather[0].icon;
+
+            return (
+              <WeatherHour
+                key={index}
+                time={data.dt_txt}
+                iconSrc={getWeatherImageForTime(conditionCode, hour)}
+                temperature={`${data.main.temp} °C`}
+              />
+            );
+          })
+        ) : (
+          <p>Loading weather data if it takes too long check your city name ...</p>
+
+        )}
+      
       </div>
     </div>
   );

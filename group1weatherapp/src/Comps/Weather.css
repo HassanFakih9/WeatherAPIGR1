@@ -14,10 +14,9 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  /* margin-bottom: 3%; */
   background-color: #ebe3e3;
   width: 200px;
-  height: 55px;
+  height: 70px;
   border-radius: 30px;
 }
 
@@ -62,11 +61,6 @@
 
 
 }
-
-.humiditylbl,
-.Windlbl,
-.Pressurelbl {}
-
 
 .CurrentTemp {
   font-size: 45px;
